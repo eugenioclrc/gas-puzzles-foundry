@@ -16,6 +16,11 @@ contract DistributeTest is Test {
         );
     }
 
+    function testPayable() public {        
+        vm.expectRevert();
+        address(distributeContract).call{value: 1}(abi.encodeWithSignature("distribute()"));
+    }
+
     function testGas() public {
         uint256 TARGET_GAS_PRICE = 57_044;
         vm.warp(8 days);
