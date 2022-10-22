@@ -14,12 +14,7 @@ contract Escrow is ReentrancyGuard {
     uint256 public depositDate;
     bool public alreadyDeposited;
 
-    constructor(
-        address _buyer,
-        address _seller,
-        address _arbiter,
-        uint256 _expiration
-    ) {
+    constructor(address _buyer, address _seller, address _arbiter, uint256 _expiration) {
         buyer = _buyer;
         seller = _seller;
         arbiter = _arbiter;
@@ -32,10 +27,7 @@ contract Escrow is ReentrancyGuard {
     }
 
     function buyerDeposit() public payable nonReentrant {
-        require(
-            msg.sender == buyer,
-            "you are not the buyer, you cannot deposit"
-        );
+        require(msg.sender == buyer, "you are not the buyer, you cannot deposit");
         require(alreadyDeposited == false, "you cannot deposit twice");
         depositDate = block.timestamp;
     }
@@ -53,14 +45,8 @@ contract Escrow is ReentrancyGuard {
     }
 
     function sellerWithdraw() public {
-        require(
-            msg.sender == seller,
-            "you are not the seller, you cannot withdraw"
-        );
-        require(
-            arbiterUnlocked || block.timestamp > expiration,
-            "arbiter has not unlocked"
-        );
+        require(msg.sender == seller, "you are not the seller, you cannot withdraw");
+        require(arbiterUnlocked || block.timestamp > expiration, "arbiter has not unlocked");
         payable(seller).transfer(address(this).balance);
     }
 }

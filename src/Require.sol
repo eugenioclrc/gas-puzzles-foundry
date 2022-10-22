@@ -6,11 +6,7 @@ contract Require {
     uint256 lastPurchaseTime;
 
     function purchaseToken() external payable {
-        require(
-            msg.value == 0.1 ether &&
-                block.timestamp > lastPurchaseTime + COOLDOWN,
-            "cannot purchase"
-        );
+        require(msg.value == 0.1 ether && block.timestamp > lastPurchaseTime + COOLDOWN, "cannot purchase");
         lastPurchaseTime = block.timestamp;
         // mint the user a token
     }

@@ -23,10 +23,7 @@ contract Mint {
         require(totalSupply < MAX_SUPPLY, "supply used up");
         require(!alreadyMinted[msg.sender], "you already minted");
         require(msg.value == 0.07 ether, "wrong price");
-        require(
-            publicMintOpens != 0 && block.timestamp > publicMintOpens,
-            "public mint not open"
-        );
+        require(publicMintOpens != 0 && block.timestamp > publicMintOpens, "public mint not open");
 
         alreadyMinted[msg.sender] = true;
         totalSupply++;

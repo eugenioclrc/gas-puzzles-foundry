@@ -11,10 +11,7 @@ contract Distribute {
     }
 
     function distribute() external {
-        require(
-            block.timestamp > createTime + 1 weeks,
-            "cannot distribute yet"
-        );
+        require(block.timestamp > createTime + 1 weeks, "cannot distribute yet");
 
         uint256 amount = address(this).balance / 4;
         payable(contributors[0]).transfer(amount);
